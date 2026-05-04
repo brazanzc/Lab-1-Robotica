@@ -2,7 +2,7 @@
 Simulación de Robots AGV (Kiva-style) - Amazon Warehouse
 =========================================================
 Proyecto: Lab Robótica - UCT
-Autor: Sebastián
+Autor: Sebastián Riquelme, Bryan Zapata
 
 4 robots AGV navegan por una bodega, recogen carritos asignados
 aleatoriamente, los llevan a un destino y vuelven a sus bases a cargar.
@@ -519,7 +519,9 @@ class Simulation:
         for r in self.robots:
             if r.state != S_WAITING:
                 continue
-            if r.wait_counter < MAX_WAIT_FRAMES:
+            # Añadimos un retraso extra de 30 frames (0.5 seg) multiplicado por su ID
+            retraso_personalizado = MAX_WAIT_FRAMES + (r.id * 30)
+            if r.wait_counter < retraso_personalizado:
                 continue
             if r.reroute_cooldown > 0:
                 continue
